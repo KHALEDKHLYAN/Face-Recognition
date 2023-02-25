@@ -113,36 +113,56 @@ if(isNumber(Id) and name.isalpha()):
     message.configure(text= res)
 
 # If ID or name is not in the correct format, display error message in GUI
-else:
-    if(isNumber(name)):
-        res = "Enter Alphabetical Name"
-        message.configure(text= res)
-    if(Id.isalpha()):
-        res = "Enter Numeric Id"
-        message.configure(text= res)
+# If the name entered by the user contains numbers, display an error message
+if(isNumber(name)):
+    res = "Enter Alphabetical Name"
+    message.configure(text= res)
 
-    
+# If the Id entered by the user contains alphabets, display an error message
+if(Id.isalpha()):
+    res = "Enter Numeric Id"
+    message.configure(text= res)
+
+
+# Function to train the images and create a LBPH face recognizer
 def trainImages():
+    # Create a recognizer object using LBPHFaceRecognizer
     recognizer = cv2.face_LBPHFaceRecognizer.create()
     harcascadePath = "haarcascade_frontalface_default.xml"
     detector =cv2.CascadeClassifier(harcascadePath)
+
+    # Get images and corresponding Ids from the given path
     faces,Id = getImagesAndLabels("SampleImages")
+
+    # Train the recognizer using the faces and corresponding Ids
     recognizer.train(faces, np.array(Id))
+
+    # Save the trained recognizer to a file
     recognizer.save("DataSet\Trainner.yml")
     res = "Image Trained"
     message.configure(text= res)
 
+# Function to get images and corresponding Ids from a given path
 def getImagesAndLabels(path):
+    # Get the file paths of all the images in the given path
     imagePaths=[os.path.join(path,f) for f in os.listdir(path)] 
     faces=[]
     Ids=[]
     for imagePath in imagePaths:
+        # Convert the image to grayscale and convert to numpy array
         pilImage=Image.open(imagePath).convert('L')
         imageNp=np.array(pilImage,'uint8')
+
+        # Get the Id of the image from the file name
         Id=int(os.path.split(imagePath)[-1].split(".")[1])
+
+        # Add the image and Id to the respective lists
         faces.append(imageNp)
         Ids.append(Id)        
+
+    # Return the list of faces and corresponding Ids
     return faces,Ids
+
   
 clearButton1 = tk.Button(window, text="Clear", command=clearId, fg="black", bg="white", width=20, height=2, activebackground = "Red", font=('times', 15, ' bold '))
 clearButton1.place(x=850, y=200)
