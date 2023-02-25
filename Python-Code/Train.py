@@ -166,7 +166,6 @@ def getImagesAndLabels(path):
     # Return the list of faces and corresponding Ids
     return faces,Ids
 
-  
 clearButton1 = tk.Button(window, text="Clear", command=clearId, fg="black", bg="white", width=20, height=2, activebackground = "Red", font=('times', 15, ' bold '))
 clearButton1.place(x=850, y=200)
 
@@ -186,3 +185,5 @@ lbl4 = tk.Label(window, text="DESIGN BY KGCE BE-IT BATCH 2020, GROUP NO : 10", w
 lbl4.place(x=200, y=620)
 
 window.mainloop()
+
+# Runs the main event loop of the window, which waits for events such as button clicks or key presses and responds to them appropriately.
