@@ -39,12 +39,15 @@ lbl3.place(x=200, y=400)
 message = tk.Label(window, text="", bg="white", fg="black", width=30, height=2, font=('times', 15, ' bold ')) 
 message.place(x=550, y=400)
  
+#  This function clears the input field for ID
 def clearId():
     txt1.delete(0, 'end')
 
+#   This function clears the input field for name
 def clearName():
     txt2.delete(0, 'end')
 
+#   This function checks if a string can be converted to float, thus checking if it is a number. It returns True if it is a number and False otherwise.
 def isNumber(s):
     try:
         float(s)
